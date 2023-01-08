@@ -7,4 +7,16 @@ export default [
 		props: useRouteParamsAsProperties,
 		component: () => import('@views/unauthorized/home/index.vue'),
 	},
+	{
+		path: '',
+		name: '/about',
+		props: useRouteParamsAsProperties,
+		component: () => import('@views/unauthorized/about/index.vue'),
+	},
+	{
+		path: '',
+		name: '/contact',
+		props: useRouteParamsAsProperties,
+		component: () => import('@views/unauthorized/contact/index.vue'),
+	},
 ] as RouteRecordRaw[];

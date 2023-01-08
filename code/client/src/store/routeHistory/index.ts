@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { IRouterHistoryWrapper } from '@/models/routeHistory/wrapper';
-import { useNullableStorage } from '@composables/useNullableStorage';
+import { useTypedStorage } from '@composables/useTypedStorage';
 import { RouteLocationRaw } from 'vue-router';
 const defaultLastRoute = { path: '/' } as RouteLocationRaw;
 const defaultState: IRouterHistoryWrapper = {
@@ -8,12 +8,12 @@ const defaultState: IRouterHistoryWrapper = {
 };
 export const useRouteHistoryStore = defineStore('RouteHistoryStore', {
 	state: () => ({
-		state: useNullableStorage<IRouterHistoryWrapper>('routeHistory', defaultState),
+		data: useTypedStorage<IRouterHistoryWrapper>('routeHistory', defaultState),
 	}),
 	actions: {
 		setLastRoute(route: RouteLocationRaw) {
-			if (!this.state) this.state = defaultState;
-			this.state.lastRoute = route;
+			if (!this.data) this.data = defaultState;
+			this.data.lastRoute = route;
 		},
 	},
 });

@@ -14,11 +14,12 @@
     "sourceMap": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext", "dom","dom.iterable", "scripthost"],
     "skipLibCheck": true,
     "types": ["vuetify","vite/client"],
     "paths": {
       "@/*":            ["src/*"],
+      "@assets/*":      ["src/assets/*"],
       "@components":    ["src/components"],
       "@components/*":  ["src/components/*"],
       "@composables":   ["src/composables"],
@@ -46,6 +47,8 @@
     },
   },
   "include": [
+    "*.d.ts",
+    "env.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",

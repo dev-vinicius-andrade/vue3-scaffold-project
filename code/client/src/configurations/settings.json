@@ -1,0 +1,9 @@
+{
+    "site":{
+        "name":"My Site",
+        "title":"My Site",
+        "description":"My Site",
+        "company":"Default Company",
+        "companyUrl":"https://google.com"
+    }
+}

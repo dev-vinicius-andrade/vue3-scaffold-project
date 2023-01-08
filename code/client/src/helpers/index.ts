@@ -73,3 +73,6 @@ export function decodeBase64(text?: string) {
 	if (!text) return '';
 	return Buffer.from(text, 'base64').toString('utf-8');
 }
+export function isNullOrUndefined(value?: any) {
+	return value === null || value === undefined;
+}

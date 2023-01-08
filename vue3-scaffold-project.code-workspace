@@ -25,15 +25,38 @@
 					"**/vendor.js",
 					"**/analytics.js"
 				],
-				"preLaunchTask": "serve"
+				"preLaunchTask": "serve-ui",
 			},
-    ]
+			{
+				"type": "node",
+				"request": "launch",
+				"name": "launch:server",
+				"cwd": "${workspaceFolder}/code/server",
+				// "program": "${workspaceFolder}/code/server/server.js",
+				"sourceMaps": true,
+				"runtimeExecutable": "npm",
+				"runtimeArgs": ["run-script", "serve"],
+				"preLaunchTask": "npm:install:server",
+				"env": {
+					"PORT":"8086",
+					"NODE_ENV":"debug",
+					"CLIENT_CONFIG_PATH":"${workspaceFolder}/code/client/src/configurations/settings.json",
+					"EU":"TESTE"
+				}
+			}
+    ],
+	"compounds": [
+	  {
+		"name": "launch:client:server",
+		"configurations": ["launch:chrome", "launch:server"]
+	  }
+	]
   },
   "tasks": {
     "version": "2.0.0",
     "tasks": [
 			{
-				"label": "npm:install",
+				"label": "npm:install:client",
 				"type": "shell",
 				"command": "npm install",
 				"linux": {
@@ -50,8 +73,26 @@
 					"cwd": "${workspaceFolder}/code/client"
 				},
 			},
+			{
+				"label": "npm:install:server",
+				"type": "shell",
+				"command": "npm install",
+				"linux": {
+					"command": "if [ -d ${workspaceFolder}/code/server/node_modules ]; then npm install fi"
+				},
+				"windows": {
+					"command": "cmd",
+					"args": [
+						"/C",
+						"if not exist ${workspaceFolder}/code/server/node_modules  npm install"
+					],
+				},
+				"options": {
+					"cwd": "${workspaceFolder}/code/server"
+				},
+			},
       		{
-				"label": "serve",
+				"label": "serve-ui",
 				"type": "shell",
 				"command": "npm run dev",
 				"options": {
@@ -59,7 +100,7 @@
 				},
 				"isBackground": true,
 				"dependsOn": [
-					"npm:install"
+					"npm:install:client"
 				],
 				"problemMatcher": [
 					{
@@ -72,6 +113,20 @@
 					}
 				]
 			},
+			// {
+			// 	"label": "serve-server",
+			// 	"type": "shell",
+			// 	"command": "npm run serve",
+			// 	"options": {
+			// 		"cwd": "${workspaceFolder}/code/server"
+			// 	},
+			// 	"dependsOn": [
+			// 		"npm:install:server"
+			// 	],
+			// 	"problemMatcher": [
+			// 		"$tsc-watch"
+			// 	]
+			// }
     ]
   },
   "extensions": {

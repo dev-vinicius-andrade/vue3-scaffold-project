@@ -1,2 +1,5 @@
-export interface IPermissionWrapper {}
-export declare type PermissionWrapper = IPermissionWrapper;
+import RolesEnum from '@enums/auth/roles';
+export interface IPermissionDataWrapper {
+	permissions: RolesEnum[];
+}
+export declare type PermissionDataWrapper = IPermissionDataWrapper;

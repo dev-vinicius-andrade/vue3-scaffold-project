@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized, RouteLocationRaw, Router, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
 import { useRouteParamsAsProperties } from '@/composables/useRouteParamsAsProperties';
 import { useImportRoutes } from '@/composables/useImportRoutes';
 import { useAuthStore } from '@/store/auth';
+import { useConfigurationsStore } from '@/store/configurations';
 import { usePermissionsStore } from '@/store/permissions/index';
 import { useRouteHistoryStore } from '@/store/routeHistory/index';
 import { RouteNavigationGuardReturn } from '@/types/router/return';
@@ -46,6 +47,17 @@ const router = createRouter({
 						},
 					],
 				},
+				{
+					path: '/company/site',
+					name: '/company/site',
+					component: () => import('@layouts/blank.vue'),
+					beforeEnter: () => {
+						const configurationsStore = useConfigurationsStore();
+						if (configurationsStore?.data?.site?.companyUrl)
+							window.location.href = configurationsStore.data.site.companyUrl;
+						else router.push({ name: '/' });
+					},
+				},
 				...routes.authorized,
 				...routes.unauthorized,
 			],
@@ -55,22 +67,39 @@ const router = createRouter({
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
 	await handleRoute(to, from);
 });
-async function handleRoute(to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<RouteNavigationGuardReturn> {
-	if (!isAuthorizedRoute(to)) return to;
+async function handleUnauthorizedRoute(
+	to: RouteLocationNormalized,
+	from: RouteLocationNormalized,
+): Promise<RouteNavigationGuardReturn> {
+	if (to.name === '/login') return await handleNotLogged(to, from);
+	return to;
+}
+async function handleRoute(
+	to: RouteLocationNormalized,
+	from: RouteLocationNormalized,
+): Promise<RouteNavigationGuardReturn> {
+	if (!isAuthorizedRoute(to)) return await handleUnauthorizedRoute(to, from);
 	const authStore = useAuthStore();
 	const isLogged = await authStore.isLogged();
 	if (!isLogged) return await handleNotLogged(to, from);
 	else return await handleLogged(to, from);
 }
-async function handleNotLogged(to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<RouteNavigationGuardReturn> {
+async function handleNotLogged(
+	to: RouteLocationNormalized,
+	from: RouteLocationNormalized,
+): Promise<RouteNavigationGuardReturn> {
 	const authStore = useAuthStore();
 	if (to?.query?.code && to?.query?.state) {
 		return { name: '/login/callback' };
 	} else {
 		if (!(await authStore.login())) return false;
+		return to;
 	}
 }
-async function handleLogged(to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<RouteNavigationGuardReturn> {
+async function handleLogged(
+	to: RouteLocationNormalized,
+	from: RouteLocationNormalized,
+): Promise<RouteNavigationGuardReturn> {
 	if (to.name === '/login/callback') return await handleLoggedInToCallbackRoute();
 	if (!canNavigate(to, from)) return { name: '/unauthorized' };
 	setLastRoute(to);
@@ -88,7 +117,7 @@ async function handleLoggedInToCallbackRoute(): Promise<RouteNavigationGuardRetu
 	const authStore = useAuthStore();
 	const permissionsStore = usePermissionsStore();
 	authStore.setUserData();
-	permissionsStore.setPermissions(authStore.userData);
+	permissionsStore.setPermissions(authStore.data.userData);
 	const userHomeRoute = authStore.getUserHomeRoute();
 	if (!userHomeRoute) return false;
 
@@ -97,7 +126,11 @@ async function handleLoggedInToCallbackRoute(): Promise<RouteNavigationGuardRetu
 }
 function setLastRoute(to: RouteLocationNormalized) {
 	const routeHistoryStore = useRouteHistoryStore();
-	if (!routes.authorized.some(route => route.path === to.path || route.name === to.name) && !routes.unauthorized.some(route => route.path === to.path || route.name === to.name)) return;
+	if (
+		!routes.authorized.some(route => route.path === to.path || route.name === to.name) &&
+		!routes.unauthorized.some(route => route.path === to.path || route.name === to.name)
+	)
+		return;
 	routeHistoryStore.setLastRoute(to);
 }
 function isAuthorizedRoute(to: RouteLocationNormalized): boolean {

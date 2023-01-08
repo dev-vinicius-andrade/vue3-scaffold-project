@@ -1,21 +1,29 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import { ConfigurationWrapper } from '@/models/configurations/wrapper';
-import { Nullable } from '@/types/nullable';
-import { useNullableStorage } from '@composables/useNullableStorage';
+import { IConfigurationWrapper } from '@models/configurations/wrapper';
+import { useTypedStorage } from '@composables/useTypedStorage';
+const defaultData: IConfigurationWrapper = {
+	site: {
+		name: 'Default Site Name',
+		title: 'Default Site Title',
+		description: 'Default Site Description',
+		company: 'Default Site Company',
+	},
+	authentication: null,
+};
 export const useConfigurationsStore = defineStore('ConfigurationsStore', {
 	state: () => ({
-		configurations: useNullableStorage<ConfigurationWrapper>('configurations'),
+		data: useTypedStorage<IConfigurationWrapper>('configurations', defaultData),
 	}),
 	actions: {
-		set(configurations: Nullable<ConfigurationWrapper>) {
-			this.configurations = configurations;
+		set(configurations: IConfigurationWrapper) {
+			this.data = configurations;
 		},
-		async get(fromCache: boolean = true) {
-			if (fromCache && this.configurations) return this.configurations;
-			const response = await axios.get('/configurations/settings.json');
+		async get(fromCache: boolean = true): Promise<IConfigurationWrapper> {
+			if (fromCache && this.data) return this.data;
+			const response = await axios.get('/configurations');
 			this.set(response.status !== 200 ? null : response.data);
-			return this.configurations;
+			return this.data;
 		},
 	},
 });

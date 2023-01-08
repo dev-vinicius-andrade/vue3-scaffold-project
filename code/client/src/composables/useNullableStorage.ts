@@ -4,7 +4,7 @@ import { Nullable } from '@/types/nullable';
 export declare type NullableStorageOptions<T> = {
 	defaultValue: Nullable<T>;
 	storage?: Storage;
-	options?: Nullable<StorageOptions<T | any>>;
+	options?: Nullable<UseStorageOptions<T | any>>;
 };
 export function useNullableStorage<T>(
 	key: string,
@@ -14,7 +14,7 @@ export function useNullableStorage<T>(
 		options: null,
 	},
 ): RemovableRef<Nullable<T>> {
-	const defaultOptions = { serializer: StorageSerializers.object } as StorageOptions<T | any>;
+	const defaultOptions = { serializer: StorageSerializers.object } as UseStorageOptions<T | any>;
 	const mergedOptions = payload?.options ? { ...defaultOptions, ...payload.options } : defaultOptions;
 	return useStorage(key, payload.defaultValue, localStorage, mergedOptions);
 }

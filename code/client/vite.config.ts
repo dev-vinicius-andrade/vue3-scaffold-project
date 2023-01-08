@@ -12,6 +12,17 @@ import Icons from 'unplugin-icons/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	server: {
+		watch: {
+			usePolling: true,
+		},
+		proxy: {
+			'/configurations': {
+				target: 'http://localhost:8086',
+			},
+		},
+	},
+
 	plugins: [
 		vue(),
 		vueJsx(),
@@ -39,6 +50,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
+			'@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
 			'@components': fileURLToPath(new URL('./src/components', import.meta.url)),
 			'@composables': fileURLToPath(new URL('./src/composables', import.meta.url)),
 			'@enums': fileURLToPath(new URL('./src/enums', import.meta.url)),
@@ -53,8 +65,5 @@ export default defineConfig({
 			'@types': fileURLToPath(new URL('./src/types', import.meta.url)),
 		},
 		extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
-	},
-	server: {
-		port: 3000,
 	},
 });

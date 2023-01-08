@@ -1,28 +1,30 @@
-import RolesEnum from '@enums/auth/roles';
-import axios from 'axios';
+import { RolesEnum } from '@enums/auth/roles';
 import { defineStore } from 'pinia';
-import { IPermissionWrapper } from '@/models/permissions/wrapper';
+import { IPermissionDataWrapper } from '@/models/permissions/wrapper';
 import { IUser } from '@models/user';
 import { Nullable } from '@/types/nullable';
-import { useNullableStorage } from '@composables/useNullableStorage';
 import { useConfigurationsStore } from '@store/configurations';
-const defaulPermissions: Nullable<IPermissionWrapper> = {};
+import { useTypedStorage } from '@composables/useTypedStorage';
 const rolesMap = new Map<string, RolesEnum>(Object.values(RolesEnum).map(v => [v.toLowerCase(), v]));
+const defaulData: IPermissionDataWrapper = {
+	permissions: [RolesEnum.NONE],
+};
+
 export const usePermissionsStore = defineStore('PermissionsStore', {
 	state: () => ({
-		permissions: useNullableStorage<IPermissionWrapper>('permissions', defaulPermissions),
+		data: useTypedStorage<IPermissionDataWrapper>('permissions', defaulData),
 	}),
 	actions: {
-		set(permissions: Nullable<IPermissionWrapper>) {
-			this.permissions = permissions;
+		set(permissions: Nullable<IPermissionDataWrapper>) {
+			this.data.permissions = permissions?.permissions ?? defaulData.permissions;
 		},
 		async get() {
-			return this.permissions;
+			return this.data.permissions;
 		},
 		setPermissions(userData?: Nullable<IUser>): Nullable<RolesEnum[]> {
 			if (!userData) return [];
 			const configurationsStore = useConfigurationsStore();
-			const rolesNamespace = configurationsStore?.configurations?.authentication?.rolesNamespace || import.meta.env.VITE_APP_AUTH_ROLES_NAMESPACE;
+			const rolesNamespace = configurationsStore?.data?.authentication?.rolesNamespace || import.meta.env.VITE_APP_AUTH_ROLES_NAMESPACE;
 			const roles = (userData[`${rolesNamespace}/roles`] as Nullable<string[]>) ?? [];
 			const permissions = roles.map(role => this.getRole(role)).filter(role => !!role) as RolesEnum[];
 			return permissions;
