@@ -2,9 +2,16 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const Events: typeof import('./src/enums/events/index')['Events']
+  const PositionEnum: typeof import('./src/enums/position/index')['PositionEnum']
+  const RolesEnum: typeof import('./src/enums/auth/roles/index')['RolesEnum']
+  const StringCase: typeof import('./src/enums/stringCase/index')['StringCase']
+  const ThemeEnum: typeof import('./src/enums/theme/index')['ThemeEnum']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
+  const asynchronousSetter: typeof import('./src/composables/useModelValue')['asynchronousSetter']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const colors: typeof import('vuetify/lib/util/colors')['default']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -34,11 +41,14 @@ declare global {
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const generateId: typeof import('./src/helpers/index')['generateId']
   const getActivePinia: typeof import('pinia')['getActivePinia']
+  const getAvailableThemes: typeof import('./src/helpers/index')['getAvailableThemes']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getFileName: typeof import('./src/helpers/index')['getFileName']
   const getText: typeof import('./src/helpers/index')['getText']
   const h: typeof import('vue')['h']
+  const handleAsynchronousEmit: typeof import('./src/composables/useModelValue')['handleAsynchronousEmit']
+  const handleSynchronousEmit: typeof import('./src/composables/useModelValue')['handleSynchronousEmit']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -95,6 +105,7 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const roles: typeof import('./src/enums/auth/roles/index')['default']
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -104,7 +115,9 @@ declare global {
   const stringCaseHandlers: typeof import('./src/helpers/index')['stringCaseHandlers']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
+  const synchronousSetter: typeof import('./src/composables/useModelValue')['synchronousSetter']
   const templateRef: typeof import('@vueuse/core')['templateRef']
+  const theme: typeof import('./src/enums/theme/index')['default']
   const throttledRef: typeof import('@vueuse/core')['throttledRef']
   const throttledWatch: typeof import('@vueuse/core')['throttledWatch']
   const toCammelCase: typeof import('./src/helpers/index')['toCammelCase']
@@ -134,17 +147,22 @@ declare global {
   const useArraySome: typeof import('@vueuse/core')['useArraySome']
   const useAsyncQueue: typeof import('@vueuse/core')['useAsyncQueue']
   const useAsyncState: typeof import('@vueuse/core')['useAsyncState']
+  const useAsynchronousModelValue: typeof import('./src/composables/useModelValue')['useAsynchronousModelValue']
   const useAttrs: typeof import('vue')['useAttrs']
+  const useAuthStore: typeof import('./src/store/auth/index')['useAuthStore']
   const useBase64: typeof import('@vueuse/core')['useBase64']
   const useBattery: typeof import('@vueuse/core')['useBattery']
+  const useBinder: typeof import('./src/composables/useBinder')['useBinder']
   const useBluetooth: typeof import('@vueuse/core')['useBluetooth']
   const useBreakpoints: typeof import('@vueuse/core')['useBreakpoints']
   const useBroadcastChannel: typeof import('@vueuse/core')['useBroadcastChannel']
   const useBrowserLocation: typeof import('@vueuse/core')['useBrowserLocation']
+  const useButtonBinder: typeof import('./src/composables/useBinder')['useButtonBinder']
   const useCached: typeof import('@vueuse/core')['useCached']
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
+  const useConfigurationsStore: typeof import('./src/store/configurations/index')['useConfigurationsStore']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCounter: typeof import('@vueuse/core')['useCounter']
   const useCssModule: typeof import('vue')['useCssModule']
@@ -185,6 +203,7 @@ declare global {
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
   const useI18n: typeof import('vue-i18n')['useI18n']
+  const useIconBinder: typeof import('./src/composables/useBinder')['useIconBinder']
   const useIdle: typeof import('@vueuse/core')['useIdle']
   const useImage: typeof import('@vueuse/core')['useImage']
   const useImportRoutes: typeof import('./src/composables/useImportRoutes')['default']
@@ -195,13 +214,18 @@ declare global {
   const useKeyModifier: typeof import('@vueuse/core')['useKeyModifier']
   const useLastChanged: typeof import('@vueuse/core')['useLastChanged']
   const useLink: typeof import('vue-router')['useLink']
+  const useListBinder: typeof import('./src/composables/useBinder')['useListBinder']
+  const useListItemBinder: typeof import('./src/composables/useBinder')['useListItemBinder']
   const useLocalStorage: typeof import('@vueuse/core')['useLocalStorage']
+  const useLocaleStore: typeof import('./src/store/locale/index')['useLocaleStore']
+  const useLocaleWatcher: typeof import('./src/composables/useLocaleWatcher')['useLocaleWatcher']
   const useMagicKeys: typeof import('@vueuse/core')['useMagicKeys']
   const useManualRefHistory: typeof import('@vueuse/core')['useManualRefHistory']
   const useMediaControls: typeof import('@vueuse/core')['useMediaControls']
   const useMediaQuery: typeof import('@vueuse/core')['useMediaQuery']
   const useMemoize: typeof import('@vueuse/core')['useMemoize']
   const useMemory: typeof import('@vueuse/core')['useMemory']
+  const useMenuBinder: typeof import('./src/composables/useBinder')['useMenuBinder']
   const useMenuItems: typeof import('./src/composables/useMenuItems')['useMenuItems']
   const useMenuItemsWithIcons: typeof import('./src/composables/useMenuItems')['useMenuItemsWithIcons']
   const useMenuItemsWithoutIcons: typeof import('./src/composables/useMenuItems')['useMenuItemsWithoutIcons']
@@ -220,6 +244,7 @@ declare global {
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
   const useParallax: typeof import('@vueuse/core')['useParallax']
   const usePermission: typeof import('@vueuse/core')['usePermission']
+  const usePermissionsStore: typeof import('./src/store/permissions/index')['usePermissionsStore']
   const usePointer: typeof import('@vueuse/core')['usePointer']
   const usePointerSwipe: typeof import('@vueuse/core')['usePointerSwipe']
   const usePreferredColorScheme: typeof import('@vueuse/core')['usePreferredColorScheme']
@@ -231,6 +256,7 @@ declare global {
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
   const useRoute: typeof import('vue-router')['useRoute']
+  const useRouteHistoryStore: typeof import('./src/store/routeHistory/index')['useRouteHistoryStore']
   const useRouteParamsAsProperties: typeof import('./src/composables/useRouteParamsAsProperties')['default']
   const useRouter: typeof import('vue-router')['useRouter']
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation']
@@ -250,10 +276,14 @@ declare global {
   const useStyleTag: typeof import('@vueuse/core')['useStyleTag']
   const useSupported: typeof import('@vueuse/core')['useSupported']
   const useSwipe: typeof import('@vueuse/core')['useSwipe']
+  const useSynchronousModelValue: typeof import('./src/composables/useModelValue')['useSynchronousModelValue']
   const useTemplateRefsList: typeof import('@vueuse/core')['useTemplateRefsList']
   const useTextDirection: typeof import('@vueuse/core')['useTextDirection']
   const useTextSelection: typeof import('@vueuse/core')['useTextSelection']
   const useTextareaAutosize: typeof import('@vueuse/core')['useTextareaAutosize']
+  const useTheme: typeof import('./src/composables/useTheme')['useTheme']
+  const useThemeStore: typeof import('./src/store/theme/useThemeStore')['useThemeStore']
+  const useThemeWatcher: typeof import('./src/composables/useThemeWatcher')['useThemeWatcher']
   const useThrottle: typeof import('@vueuse/core')['useThrottle']
   const useThrottleFn: typeof import('@vueuse/core')['useThrottleFn']
   const useThrottledRefHistory: typeof import('@vueuse/core')['useThrottledRefHistory']
@@ -303,9 +333,16 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly Events: UnwrapRef<typeof import('./src/enums/events/index')['Events']>
+    readonly PositionEnum: UnwrapRef<typeof import('./src/enums/position/index')['PositionEnum']>
+    readonly RolesEnum: UnwrapRef<typeof import('./src/enums/auth/roles/index')['RolesEnum']>
+    readonly StringCase: UnwrapRef<typeof import('./src/enums/stringCase/index')['StringCase']>
+    readonly ThemeEnum: UnwrapRef<typeof import('./src/enums/theme/index')['ThemeEnum']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
+    readonly asynchronousSetter: UnwrapRef<typeof import('./src/composables/useModelValue')['asynchronousSetter']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly colors: UnwrapRef<typeof import('vuetify/lib/util/colors')['default']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -335,11 +372,14 @@ declare module 'vue' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly generateId: UnwrapRef<typeof import('./src/helpers/index')['generateId']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
+    readonly getAvailableThemes: UnwrapRef<typeof import('./src/helpers/index')['getAvailableThemes']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getFileName: UnwrapRef<typeof import('./src/helpers/index')['getFileName']>
     readonly getText: UnwrapRef<typeof import('./src/helpers/index')['getText']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly handleAsynchronousEmit: UnwrapRef<typeof import('./src/composables/useModelValue')['handleAsynchronousEmit']>
+    readonly handleSynchronousEmit: UnwrapRef<typeof import('./src/composables/useModelValue')['handleSynchronousEmit']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
@@ -396,6 +436,7 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly roles: UnwrapRef<typeof import('./src/enums/auth/roles/index')['default']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
@@ -405,7 +446,9 @@ declare module 'vue' {
     readonly stringCaseHandlers: UnwrapRef<typeof import('./src/helpers/index')['stringCaseHandlers']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
+    readonly synchronousSetter: UnwrapRef<typeof import('./src/composables/useModelValue')['synchronousSetter']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
+    readonly theme: UnwrapRef<typeof import('./src/enums/theme/index')['default']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
     readonly toCammelCase: UnwrapRef<typeof import('./src/helpers/index')['toCammelCase']>
@@ -435,17 +478,22 @@ declare module 'vue' {
     readonly useArraySome: UnwrapRef<typeof import('@vueuse/core')['useArraySome']>
     readonly useAsyncQueue: UnwrapRef<typeof import('@vueuse/core')['useAsyncQueue']>
     readonly useAsyncState: UnwrapRef<typeof import('@vueuse/core')['useAsyncState']>
+    readonly useAsynchronousModelValue: UnwrapRef<typeof import('./src/composables/useModelValue')['useAsynchronousModelValue']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useAuthStore: UnwrapRef<typeof import('./src/store/auth/index')['useAuthStore']>
     readonly useBase64: UnwrapRef<typeof import('@vueuse/core')['useBase64']>
     readonly useBattery: UnwrapRef<typeof import('@vueuse/core')['useBattery']>
+    readonly useBinder: UnwrapRef<typeof import('./src/composables/useBinder')['useBinder']>
     readonly useBluetooth: UnwrapRef<typeof import('@vueuse/core')['useBluetooth']>
     readonly useBreakpoints: UnwrapRef<typeof import('@vueuse/core')['useBreakpoints']>
     readonly useBroadcastChannel: UnwrapRef<typeof import('@vueuse/core')['useBroadcastChannel']>
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
+    readonly useButtonBinder: UnwrapRef<typeof import('./src/composables/useBinder')['useButtonBinder']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
+    readonly useConfigurationsStore: UnwrapRef<typeof import('./src/store/configurations/index')['useConfigurationsStore']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
@@ -486,6 +534,7 @@ declare module 'vue' {
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
+    readonly useIconBinder: UnwrapRef<typeof import('./src/composables/useBinder')['useIconBinder']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
     readonly useImage: UnwrapRef<typeof import('@vueuse/core')['useImage']>
     readonly useImportRoutes: UnwrapRef<typeof import('./src/composables/useImportRoutes')['default']>
@@ -496,13 +545,18 @@ declare module 'vue' {
     readonly useKeyModifier: UnwrapRef<typeof import('@vueuse/core')['useKeyModifier']>
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useListBinder: UnwrapRef<typeof import('./src/composables/useBinder')['useListBinder']>
+    readonly useListItemBinder: UnwrapRef<typeof import('./src/composables/useBinder')['useListItemBinder']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
+    readonly useLocaleStore: UnwrapRef<typeof import('./src/store/locale/index')['useLocaleStore']>
+    readonly useLocaleWatcher: UnwrapRef<typeof import('./src/composables/useLocaleWatcher')['useLocaleWatcher']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
     readonly useMediaControls: UnwrapRef<typeof import('@vueuse/core')['useMediaControls']>
     readonly useMediaQuery: UnwrapRef<typeof import('@vueuse/core')['useMediaQuery']>
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
+    readonly useMenuBinder: UnwrapRef<typeof import('./src/composables/useBinder')['useMenuBinder']>
     readonly useMenuItems: UnwrapRef<typeof import('./src/composables/useMenuItems')['useMenuItems']>
     readonly useMenuItemsWithIcons: UnwrapRef<typeof import('./src/composables/useMenuItems')['useMenuItemsWithIcons']>
     readonly useMenuItemsWithoutIcons: UnwrapRef<typeof import('./src/composables/useMenuItems')['useMenuItemsWithoutIcons']>
@@ -521,6 +575,7 @@ declare module 'vue' {
     readonly usePageLeave: UnwrapRef<typeof import('@vueuse/core')['usePageLeave']>
     readonly useParallax: UnwrapRef<typeof import('@vueuse/core')['useParallax']>
     readonly usePermission: UnwrapRef<typeof import('@vueuse/core')['usePermission']>
+    readonly usePermissionsStore: UnwrapRef<typeof import('./src/store/permissions/index')['usePermissionsStore']>
     readonly usePointer: UnwrapRef<typeof import('@vueuse/core')['usePointer']>
     readonly usePointerSwipe: UnwrapRef<typeof import('@vueuse/core')['usePointerSwipe']>
     readonly usePreferredColorScheme: UnwrapRef<typeof import('@vueuse/core')['usePreferredColorScheme']>
@@ -532,6 +587,7 @@ declare module 'vue' {
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
+    readonly useRouteHistoryStore: UnwrapRef<typeof import('./src/store/routeHistory/index')['useRouteHistoryStore']>
     readonly useRouteParamsAsProperties: UnwrapRef<typeof import('./src/composables/useRouteParamsAsProperties')['default']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useScreenOrientation: UnwrapRef<typeof import('@vueuse/core')['useScreenOrientation']>
@@ -551,10 +607,14 @@ declare module 'vue' {
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>
+    readonly useSynchronousModelValue: UnwrapRef<typeof import('./src/composables/useModelValue')['useSynchronousModelValue']>
     readonly useTemplateRefsList: UnwrapRef<typeof import('@vueuse/core')['useTemplateRefsList']>
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>
     readonly useTextSelection: UnwrapRef<typeof import('@vueuse/core')['useTextSelection']>
     readonly useTextareaAutosize: UnwrapRef<typeof import('@vueuse/core')['useTextareaAutosize']>
+    readonly useTheme: UnwrapRef<typeof import('./src/composables/useTheme')['useTheme']>
+    readonly useThemeStore: UnwrapRef<typeof import('./src/store/theme/useThemeStore')['useThemeStore']>
+    readonly useThemeWatcher: UnwrapRef<typeof import('./src/composables/useThemeWatcher')['useThemeWatcher']>
     readonly useThrottle: UnwrapRef<typeof import('@vueuse/core')['useThrottle']>
     readonly useThrottleFn: UnwrapRef<typeof import('@vueuse/core')['useThrottleFn']>
     readonly useThrottledRefHistory: UnwrapRef<typeof import('@vueuse/core')['useThrottledRefHistory']>

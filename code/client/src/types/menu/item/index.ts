@@ -1,11 +1,11 @@
 import { RouteLocationRaw } from 'vue-router';
 import { PositionEnum } from '@enums/position';
-export interface IMenuItem {
+export interface IMenu {
 	title: string;
 	to?: RouteLocationRaw;
 	position?: PositionEnum;
 	prependIcon?: string;
 	appendIcon?: string;
 }
-export declare type MenuItem = IMenuItem;
-export default MenuItem;
+export declare type Menu = IMenu;
+export default Menu;

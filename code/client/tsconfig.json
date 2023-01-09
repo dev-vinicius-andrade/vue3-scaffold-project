@@ -42,11 +42,13 @@
       "@store/*":       ["src/store/*"],
       "@types":         ["src/types"],
       "@types/*":       ["src/types/*"],
+      "@theme":         ["src/theme"],
       "@views":         ["src/views"],
       "@views/*":       ["src/views/*"],
     },
   },
   "include": [
+    "~icons/**/*",
     "*.d.ts",
     "env.d.ts",
     "src/**/*.ts",

@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 import { useAuthStore } from '@store/auth';
 import { loadFonts } from '@plugins/webfontloader';
 import router from '@router';
-import vuetify from '@plugins/vuetify';
+import vuetify from '@/plugins/vuetify';
 import utils from '@plugins/utils';
 import i18n from '@plugins/i18n';
 

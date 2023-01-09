@@ -4,12 +4,13 @@ import vuetify from 'vite-plugin-vuetify';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
+
 import VueI18n from '@intlify/vite-plugin-vue-i18n';
 // Utilities
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'url';
 import Icons from 'unplugin-icons/vite';
-
+import ViteIconsResolver from 'unplugin-icons/resolver';
 // https://vitejs.dev/config/
 export default defineConfig({
 	server: {
@@ -30,21 +31,43 @@ export default defineConfig({
 			autoImport: true,
 		}),
 		AutoImport({
-			imports: ['vue', 'vue-router', '@vueuse/core', 'vue-i18n', 'pinia'],
-			dirs: ['src/store', 'src/helpers', 'src/enums', 'src/composables'],
+			imports: [
+				'vue',
+				'vue-router',
+				'@vueuse/core',
+				'vue-i18n',
+				'pinia',
+				{
+					'vuetify/lib/util/colors': [['default', 'colors']],
+				},
+			],
+			dirs: ['src/store/**', 'src/helpers/**', 'src/enums/**', 'src/composables/**'],
 			vueTemplate: true,
 			dts: true,
 		}),
 		Components({
-			dirs: ['src/components'],
+			dirs: ['src/components/**/*'],
 			dts: true,
+			deep: true,
+			extensions: ['vue', 'tsx'],
+			collapseSamePrefixes: true,
+			directoryAsNamespace: true,
+			resolvers: [
+				ViteIconsResolver({
+					componentPrefix: 'iconify',
+					enabledCollections: ['fluent-emoji', 'fluent-emoji-flat', 'fa', 'mdi', 'line-md', 'flagpack', 'ic'],
+				}),
+			],
 		}),
 		VueI18n({
 			runtimeOnly: false,
 			compositionOnly: true,
 			include: [fileURLToPath(new URL('./src/plugins/i18n/locales/**', import.meta.url))],
 		}),
-		Icons({ compiler: 'vue3' }),
+		Icons({
+			compiler: 'vue3',
+			autoInstall: true,
+		}),
 	],
 	define: { 'process.env': {} },
 	resolve: {
@@ -63,6 +86,7 @@ export default defineConfig({
 			'@store': fileURLToPath(new URL('./src/store', import.meta.url)),
 			'@views': fileURLToPath(new URL('./src/views', import.meta.url)),
 			'@types': fileURLToPath(new URL('./src/types', import.meta.url)),
+			'@theme': fileURLToPath(new URL('./src/theme', import.meta.url)),
 		},
 		extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
 	},

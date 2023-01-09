@@ -1,5 +1,5 @@
-import { IVariation } from '@locales/types';
-export const messages = {
+import { ILocaleMenu } from '@/types/locale/menu';
+export const messages: ILocaleMenu = {
 	menu: {
 		home: 'Home',
 		about: 'About',
@@ -8,4 +8,3 @@ export const messages = {
 		account: 'Account',
 	},
 };
-//export default messages;

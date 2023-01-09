@@ -1,6 +1,6 @@
 export type VariationTypes = string | undefined | null;
 export interface IVariation {
-	text: VariationTypes;
+	text: string;
 	Text: VariationTypes;
 	textCammelCased: VariationTypes;
 	textPascalCased: VariationTypes;

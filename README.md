@@ -64,13 +64,12 @@ As we use **Vuetify** as UI library, we use the **Material Design Icons**. You c
 
 
 ## Using the Iconify
-As this project also use **Iconify** library to load the icons. You can find the icons in the following link: https://iconify.design/icon-sets/
-
+As this project also use **Iconify** library to load the icons. You can find the icons in the following [link]:(https://icon-sets.iconify.design) 
 You can find a very complete list of icons in the following [link](https://icones.js.org/)
 Lets supose you want to add a **youtube** icon from material design. You can do it like:
 ```html
 <template>
-    <YoutubeIcon color="#15CA82"/>
+    <IconifyMdiYoutubeIcon color="#15CA82"/>
 </template>
 <script setup lang="ts">
     import YoutubeIcon from '~icons/mdi/youtube';
@@ -86,6 +85,11 @@ or
     import {Icon} from '@iconify/vue';
 </script>
 ```
+
+## Adding a new icon collection 
+If you want to add a new icon collection, you can do it in the following way:
+ - Go to vite.config.ts file
+    - Add the new icon collection in the **Plugins->Components->Resolvers->ViteIconsResolver->enabledCollections** section
 # Autoimport
 This project uses an [autoimport](https://www.npmjs.com/package/unplugin-auto-import) plugin to import what is passed to it automatically.
 To configure what is imported automatically, you can modify the **vite.config.ts** file in **AutoImport** section.

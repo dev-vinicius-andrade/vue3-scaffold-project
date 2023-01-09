@@ -1,6 +1,6 @@
 <template>
 	<Suspense>
-		<VLocaleProvider>
+		<VLocaleProvider :locale="localeStore.data.currentLocale.locale">
 			<VApp>
 				<VMain>
 					<NavigationBar />
@@ -9,7 +9,7 @@
 				</VMain>
 				<Footer />
 			</VApp>
-			<template #fallback>
+			<template v-slot:fallback>
 				<VApp>
 					<VMain>
 						<VContainer v-fill-height fluid v-fill-parent>
@@ -27,12 +27,13 @@
 </template>
 
 <script setup lang="ts">
-import { useConfigurationsStore } from '@store/configurations';
-import NavigationBar from '@components/navigationBar/index.vue';
-import Footer from '@components/footer/index.vue';
 const configurationsStore = useConfigurationsStore();
+const localeStore = useLocaleStore();
+
 onMounted(async () => {
 	await configurationsStore.get(false);
 	document.title = configurationsStore.data?.site.title ?? 'Loading...';
 });
+const { themeWatcher } = useThemeWatcher();
+const { localeWatcher } = useLocaleWatcher();
 </script>

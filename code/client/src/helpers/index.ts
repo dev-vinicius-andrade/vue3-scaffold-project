@@ -1,7 +1,7 @@
-import { ILocaleText } from '@/types/localeText';
+import { ILocaleText } from '@/types/locale/text';
 import { StringCase } from '@enums/stringCase';
+import { ThemeEnum } from '@enums/theme';
 import { v4 as uuidv4 } from 'uuid';
-import _forEach from 'lodash/forEach';
 import _replace from 'lodash/replace';
 import i18n from '@plugins/i18n';
 
@@ -26,7 +26,8 @@ export function getText(text?: ILocaleText | string): string {
 	if (!text.key) return '';
 	if (text?.single && !text?.multiple) return toStringCases(t(text.key, 1), text?.stringCases).trim();
 	if (text?.multiple && !text?.single) return toStringCases(t(text.key, 2), text?.stringCases).trim();
-	if (text?.count !== undefined && text?.count !== null && !text?.single && !text?.multiple) return toStringCases(t(text.key, text?.count), text?.stringCases).trim();
+	if (text?.count !== undefined && text?.count !== null && !text?.single && !text?.multiple)
+		return toStringCases(t(text.key, text?.count), text?.stringCases).trim();
 	return toStringCases(t(text.key, text.params), text?.stringCases).trim();
 }
 export function removeDoubleSpaces(text?: string): string | null | undefined {
@@ -75,4 +76,7 @@ export function decodeBase64(text?: string) {
 }
 export function isNullOrUndefined(value?: any) {
 	return value === null || value === undefined;
+}
+export function getAvailableThemes(): string[] {
+	return Object.keys(ThemeEnum).map(c => c);
 }
