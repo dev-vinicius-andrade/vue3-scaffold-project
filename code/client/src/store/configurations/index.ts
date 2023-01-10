@@ -8,6 +8,12 @@ const defaultData: IConfigurationWrapper = {
 		title: 'Default Site Title',
 		description: 'Default Site Description',
 		company: 'Default Site Company',
+		social: {
+			// facebook: 'https://facebook.com',
+			instagram: 'https://instagram.com',
+			youtube: 'https://youtube.com',
+			linkedin: 'https://linkedin.com',
+		},
 	},
 	authentication: null,
 };

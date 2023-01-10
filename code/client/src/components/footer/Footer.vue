@@ -15,12 +15,27 @@
 						</RouterLink>
 					</span>
 				</VCol>
-				<VCol cols="2" class="d-flex justify-space-between">
-					<!-- {{ colors.grey }} -->
-					<IconifyFaFacebookF :color="socialIconsColors" />
-					<IconifyFaInstagram :color="socialIconsColors" />
-					<IconifyFaYoutubePlay :color="socialIconsColors" />
-					<IconifyFaLinkedin :color="socialIconsColors" />
+				<VCol v-if="configurationsStore?.data?.site?.social" cols="2" class="d-flex justify-space-between">
+					<FooterButton v-if="configurationsStore?.data?.site?.social?.facebook"
+          :href="configurationsStore?.data?.site?.social?.facebook"
+            open-in-new-tab
+						><IconifyFaFacebookF :color="socialIconsColors"
+					/></FooterButton>
+					<FooterButton v-if="configurationsStore?.data?.site?.social?.instagram"
+          :href="configurationsStore?.data?.site?.social?.instagram"
+            open-in-new-tab
+						><IconifyFaInstagram :color="socialIconsColors"
+					/></FooterButton>
+					<FooterButton v-if="configurationsStore?.data?.site?.social?.youtube"
+          :href="configurationsStore?.data?.site?.social?.youtube"
+            open-in-new-tab
+						><IconifyFaYoutubePlay :color="socialIconsColors"
+					/></FooterButton>
+					<FooterButton v-if="configurationsStore?.data?.site?.social?.linkedin"
+            :href="configurationsStore?.data?.site?.social?.linkedin"
+            open-in-new-tab
+						><IconifyFaLinkedin :color="socialIconsColors"
+					/></FooterButton>
 				</VCol>
 				<VCol cols="2" />
 			</VRow>
@@ -29,7 +44,7 @@
 </template>
 <script setup lang="ts">
 import { useConfigurationsStore } from '@store/configurations';
-const { theme } = useTheme();
+const { theme } = useAppTheme();
 const configurationsStore = useConfigurationsStore();
 const companyRoute = computed(() => {
 	if (configurationsStore?.data?.site?.companyUrl)

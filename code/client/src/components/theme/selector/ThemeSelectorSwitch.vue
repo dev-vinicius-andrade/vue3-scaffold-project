@@ -4,7 +4,6 @@
 		<VSwitch v-model="reactiveModel" :label="label" />
 		<ThemeIcon v-if="appendIcon" />
 	</div>
-	{{ theme }}
 </template>
 <script setup lang="ts">
 export interface IThemeSelectorSwitchComponentProperties {
@@ -19,7 +18,10 @@ const componentProperties = withDefaults(defineProps<IThemeSelectorSwitchCompone
 	prependIcon: false,
 	appendIcon: true,
 });
-const theme = useTheme();
+const vuetifyTheme = useTheme();
+function toggleTheme() {
+	vuetifyTheme.global.name.value = vuetifyTheme.global.current.value.dark ? 'light' : 'dark';
+}
 const localeStore = useThemeStore();
 const label = computed(() => (componentProperties.iconOnly ? '' : getText({ key: 'variations.theme.Text' })));
 const prependIcon = computed(

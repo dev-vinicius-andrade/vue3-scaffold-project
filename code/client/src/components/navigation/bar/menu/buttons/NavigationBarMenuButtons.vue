@@ -10,15 +10,16 @@
 		:button="{ properties: { variant: componentProperties.variant } }"
 	/>
 	<VSpacer />
-	<LocaleSelector v-if="localePosition === PositionEnum.right" 
-  :button="{ properties: { variant: componentProperties.variant } }"
-  />
+	<ThemeSelector class="mt-5" />
+	<LocaleSelector
+		v-if="localePosition === PositionEnum.right"
+		:button="{ properties: { variant: componentProperties.variant } }"
+	/>
 	<NavigationBarMenuButtonsButton
 		v-for="(item, index) in componentProperties.rightMenuItems"
 		v-model="componentProperties.rightMenuItems[index]"
 		:key="`menu-item-buttons-left-${index}`"
 		:variant="componentProperties.variant"
-    
 	/>
 </template>
 <script setup lang="ts">

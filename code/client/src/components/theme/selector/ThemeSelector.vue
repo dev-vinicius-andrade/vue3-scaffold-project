@@ -1,6 +1,14 @@
 <template>
-	<ThemeSelectorSelect v-if="variant === ThemeSelectorVariantEnum.Select" :show-icon="componentProperties.showIcon" />
-	<ThemeSelectorSwitch v-if="variant === ThemeSelectorVariantEnum.Switch" :show-icon="componentProperties.showIcon"/>
+	<div>
+		<ThemeSelectorSelect
+			v-if="variant === ThemeSelectorVariantEnum.Select"
+			:show-icon="componentProperties.showIcon"
+		/>
+		<ThemeSelectorSwitch
+			v-if="variant === ThemeSelectorVariantEnum.Switch"
+			:show-icon="componentProperties.showIcon"
+		/>
+	</div>
 </template>
 <script setup lang="ts">
 import { ThemeSelectorVariantEnum } from '@components/theme/selector/types';

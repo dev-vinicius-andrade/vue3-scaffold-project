@@ -38,6 +38,7 @@ export default defineConfig({
 				'vue-i18n',
 				'pinia',
 				{
+					vuetify: ['useTheme'],
 					'vuetify/lib/util/colors': [['default', 'colors']],
 				},
 			],
@@ -52,6 +53,7 @@ export default defineConfig({
 			extensions: ['vue', 'tsx'],
 			collapseSamePrefixes: true,
 			directoryAsNamespace: true,
+			globalNamespaces: [],
 			resolvers: [
 				ViteIconsResolver({
 					componentPrefix: 'iconify',

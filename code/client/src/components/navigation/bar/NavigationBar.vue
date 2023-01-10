@@ -28,34 +28,36 @@ const { menuItemsWithIcons, menuItemsWithoutIcons } = useMenuItems();
 const showNavigationbar = ref(false);
 const authStore = useAuthStore();
 const isLogged = await authStore.isLogged();
-const authMenuItems: IMenu[] = isLogged
-	? [
-			{
-				title: getText({ key: 'menu.account' }),
-				to: { name: '/logged/home' },
-				position: PositionEnum.right,
-				prependIcon: 'mdi-account-outline',
-			},
-	  ]
-	: [
-			{
-				title: getText({ key: 'menu.loginOrSignUp' }),
-				to: { name: '/login' },
-				position: PositionEnum.right,
-				prependIcon: 'mdi-login',
-			},
-	  ];
+const authMenuItems = computed<IMenu[]>(() => {
+	return isLogged
+		? [
+				{
+					title: getText({ key: 'menu.account' }),
+					to: { name: '/logged/home' },
+					position: PositionEnum.right,
+					prependIcon: 'mdi-account-outline',
+				},
+		  ]
+		: [
+				{
+					title: getText({ key: 'menu.loginOrSignUp' }),
+					to: { name: '/login' },
+					position: PositionEnum.right,
+					prependIcon: 'mdi-login',
+				},
+		  ];
+});
 
-const leftMenuItems = computed(() =>
+const leftMenuItems = computed<IMenu[]>(() =>
 	menuItemsWithoutIcons.value.filter(item => !item.position || item.position === PositionEnum.left),
 );
-const rightMenuItems = computed(() => {
+const rightMenuItems = computed<IMenu[]>(() => {
 	const items = menuItemsWithoutIcons.value.filter(item => item.position && item.position === PositionEnum.right);
-	return [...items, ...authMenuItems];
+	return [...items, ...authMenuItems.value];
 });
-const navigationDrawerMenuItems = computed(() => [
+const navigationDrawerMenuItems = computed<IMenu[]>(() => [
 	...menuItemsWithIcons.value,
-	...authMenuItems.map(item => ({ ...item, appendIcon: item.prependIcon, prependIcon: undefined })),
+	...authMenuItems.value.map(item => ({ ...item, appendIcon: item.prependIcon, prependIcon: undefined })),
 ]);
 function toogleNavigationbar() {
 	showNavigationbar.value = !showNavigationbar.value;

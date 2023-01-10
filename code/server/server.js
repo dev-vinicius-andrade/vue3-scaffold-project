@@ -14,14 +14,14 @@ async function main() {
     const app = express();
     app.use(morgan("dev"));
     app.use(express.static(releasePath));
-    app.get('/configurations', (req, res) => {
+    app.get('/configurations',  (req, res) => {
       const getConfigOptions= { 
         debugEnvironmentName:DEBUG_ENVIRONMENT_NAME,
         configPropertyEnvironmentVariablePrefix:ENVIRONMENT_NAME_PREFIX,
          showOverrides:false,
          ignoreDebugEnvironment:true 
         };
-      const config = configurationManager.getConfig(CONFIG_PATH, getConfigOptions);
+      const config =  configurationManager.getConfig(CONFIG_PATH, getConfigOptions);
       res.send(JSON.stringify(config));
     });
     app.use((_, res) => {

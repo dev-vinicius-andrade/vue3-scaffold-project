@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     ButtonDropdown: typeof import('./src/components/button/dropdown/ButtonDropdown.vue')['default']
     Dialog: typeof import('./src/components/dialog/Dialog.vue')['default']
     Footer: typeof import('./src/components/footer/Footer.vue')['default']
+    FooterButton: typeof import('./src/components/button/footer/FooterButton.vue')['default']
     IconifyFaFacebookF: typeof import('~icons/fa/facebook-f')['default']
     IconifyFaInstagram: typeof import('~icons/fa/instagram')['default']
     IconifyFaLinkedin: typeof import('~icons/fa/linkedin')['default']

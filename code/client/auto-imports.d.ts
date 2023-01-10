@@ -137,6 +137,7 @@ declare global {
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
+  const useAppTheme: typeof import('./src/composables/useAppTheme')['useAppTheme']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
   const useArrayFind: typeof import('@vueuse/core')['useArrayFind']
@@ -281,7 +282,7 @@ declare global {
   const useTextDirection: typeof import('@vueuse/core')['useTextDirection']
   const useTextSelection: typeof import('@vueuse/core')['useTextSelection']
   const useTextareaAutosize: typeof import('@vueuse/core')['useTextareaAutosize']
-  const useTheme: typeof import('./src/composables/useTheme')['useTheme']
+  const useTheme: typeof import('vuetify')['useTheme']
   const useThemeStore: typeof import('./src/store/theme/useThemeStore')['useThemeStore']
   const useThemeWatcher: typeof import('./src/composables/useThemeWatcher')['useThemeWatcher']
   const useThrottle: typeof import('@vueuse/core')['useThrottle']
@@ -468,6 +469,7 @@ declare module 'vue' {
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
+    readonly useAppTheme: UnwrapRef<typeof import('./src/composables/useAppTheme')['useAppTheme']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>
     readonly useArrayFind: UnwrapRef<typeof import('@vueuse/core')['useArrayFind']>
@@ -612,7 +614,7 @@ declare module 'vue' {
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>
     readonly useTextSelection: UnwrapRef<typeof import('@vueuse/core')['useTextSelection']>
     readonly useTextareaAutosize: UnwrapRef<typeof import('@vueuse/core')['useTextareaAutosize']>
-    readonly useTheme: UnwrapRef<typeof import('./src/composables/useTheme')['useTheme']>
+    readonly useTheme: UnwrapRef<typeof import('vuetify')['useTheme']>
     readonly useThemeStore: UnwrapRef<typeof import('./src/store/theme/useThemeStore')['useThemeStore']>
     readonly useThemeWatcher: UnwrapRef<typeof import('./src/composables/useThemeWatcher')['useThemeWatcher']>
     readonly useThrottle: UnwrapRef<typeof import('@vueuse/core')['useThrottle']>
